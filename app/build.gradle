@@ -2,7 +2,9 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.kotlinxSerialization)
-    alias(libs.plugins.kapt)
+    //alias(libs.plugins.kapt)
+    alias(libs.plugins.compose.compiler)
+    id 'com.google.devtools.ksp'
 }
 
 android {
@@ -34,10 +36,24 @@ android {
     }
     buildFeatures {
         viewBinding true
+        compose = true
     }
 }
 
 dependencies {
+    def composeBom = libs.androidx.compose.bom
+    implementation composeBom
+    androidTestImplementation composeBom
+    implementation libs.androidx.compose.material3
+    implementation("androidx.compose.material:material:1.6.0")
+    implementation libs.androidx.compose.ui
+    implementation libs.androidx.compose.ui.tooling.preview
+    debugImplementation libs.androidx.compose.ui.tooling
+    implementation libs.androidx.activity.compose
+    implementation libs.androidx.lifecycle.viewmodel.compose
+    implementation libs.coil.compose
+    implementation libs.coil.network.okhttp
+
     implementation project(":common:di")
     implementation project(":common:formatters")
     implementation project(":common:ui")
@@ -64,7 +80,7 @@ dependencies {
     implementation libs.androidx.datastore.preferences
 
     implementation libs.dagger
-    kapt libs.daggerCompiler
+    ksp libs.daggerCompiler
 
     testImplementation libs.junit
     androidTestImplementation libs.androidx.test.ext.junit

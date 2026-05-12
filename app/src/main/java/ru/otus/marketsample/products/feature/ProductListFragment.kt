@@ -5,7 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.ComposeView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -15,6 +19,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.launch
+import org.w3c.dom.Text
 import ru.otus.marketsample.MarketSampleApp
 import ru.otus.marketsample.R
 import ru.otus.marketsample.databinding.FragmentProductListBinding
@@ -42,6 +47,10 @@ class ProductListFragment : Fragment() {
             .inject(this)
     }
 
+    @Composable
+    fun C() {
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,6 +59,11 @@ class ProductListFragment : Fragment() {
     ): View {
         _binding = FragmentProductListBinding.inflate(inflater, container, false)
         return binding.root
+        /*return ComposeView(requireContext()).apply {
+            setContent {
+                Text("Hello world!")
+            }
+        }*/
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
