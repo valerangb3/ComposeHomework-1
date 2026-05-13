@@ -1,4 +1,4 @@
-package ru.otus.marketsample.ui.products
+package ru.otus.marketsample.ui.widgets.products
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -23,7 +23,7 @@ import ru.otus.marketsample.details.feature.DetailsState
 import ru.otus.marketsample.ui.common.Black
 import ru.otus.marketsample.ui.common.Purple500
 import ru.otus.marketsample.ui.common.White
-import ru.otus.marketsample.ui.common.widgets.Discount
+import ru.otus.marketsample.ui.widgets.Discount
 
 @Composable
 fun ProductDetail(
