@@ -1,6 +1,7 @@
 package ru.otus.marketsample.ui.widgets.products
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -35,12 +37,14 @@ import ru.otus.marketsample.ui.widgets.Discount
 @Composable
 fun ProductItem(
     productsState: ProductState,
-    modifier: Modifier = Modifier
+    onClick: (productId: String) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
 
     Box(modifier = modifier
         .fillMaxWidth()
         .padding(horizontal = 16.dp, vertical = 24.dp)
+        .clickable { onClick(productsState.id) }
     ) {
         Row(modifier = Modifier.height(130.dp)) {
             Box(
@@ -53,6 +57,7 @@ fun ProductItem(
                         .fillMaxSize()
                         .clip(RoundedCornerShape(12.dp))
                         .background(Color(0x99ff0000)),
+                    contentScale = ContentScale.Crop,
                     model = productsState.image,
                     placeholder = painterResource(R.drawable.ic_launcher_foreground),
                     contentDescription = null,
@@ -114,5 +119,8 @@ fun ProductItemPreview() {
         hasDiscount = true,
         discount = "-20%"
     )
-    ProductItem(productState)
+    ProductItem(
+        productsState = productState,
+        onClick = {}
+    )
 }

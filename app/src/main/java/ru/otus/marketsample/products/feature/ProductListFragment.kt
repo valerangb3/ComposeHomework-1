@@ -25,12 +25,13 @@ import ru.otus.marketsample.R
 import ru.otus.marketsample.databinding.FragmentProductListBinding
 import ru.otus.marketsample.products.feature.adapter.ProductsAdapter
 import ru.otus.marketsample.products.feature.di.DaggerProductListComponent
+import ru.otus.marketsample.ui.screens.ProductsScreen
 import javax.inject.Inject
 
 class ProductListFragment : Fragment() {
 
-    private var _binding: FragmentProductListBinding? = null
-    private val binding get() = _binding!!
+    /*private var _binding: FragmentProductListBinding? = null
+    private val binding get() = _binding!!*/
 
     @Inject
     lateinit var factory: ProductListViewModelFactory
@@ -47,29 +48,40 @@ class ProductListFragment : Fragment() {
             .inject(this)
     }
 
-    @Composable
-    fun C() {
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentProductListBinding.inflate(inflater, container, false)
-        return binding.root
-        /*return ComposeView(requireContext()).apply {
+        return ComposeView(requireContext()).apply {
             setContent {
-                Text("Hello world!")
+                ProductsScreen(
+                    productListViewModel = viewModel,
+                    onClick = { productId ->
+                        requireActivity().findNavController(R.id.nav_host_activity_main)
+                            .navigate(
+                                resId = R.id.action_main_to_details,
+                                args = bundleOf("productId" to productId),
+                            )
+                    },
+                    onError = {
+                        Toast.makeText(
+                            requireContext(),
+                            "Error wile loading data",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                        viewModel.errorHasShown()
+                    }
+                )
             }
-        }*/
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.recyclerView.adapter = ProductsAdapter(
+        /*binding.recyclerView.adapter = ProductsAdapter(
             onItemClicked = { productId ->
                 requireActivity().findNavController(R.id.nav_host_activity_main)
                     .navigate(
@@ -82,9 +94,9 @@ class ProductListFragment : Fragment() {
 
         binding.swipeRefreshLayout.setOnRefreshListener {
             viewModel.refresh()
-        }
+        }*/
 
-        subscribeUI()
+        //subscribeUI()
     }
 
     private fun subscribeUI() {
@@ -113,19 +125,19 @@ class ProductListFragment : Fragment() {
     }
 
     private fun showProductList(productListState: List<ProductState>) {
-        binding.progress.visibility = View.GONE
+        /*binding.progress.visibility = View.GONE
         binding.recyclerView.visibility = View.VISIBLE
         (binding.recyclerView.adapter as ProductsAdapter).submitList(productListState)
-        binding.swipeRefreshLayout.isRefreshing = false
+        binding.swipeRefreshLayout.isRefreshing = false*/
     }
 
     private fun showLoading() {
-        binding.progress.visibility = View.VISIBLE
-        binding.recyclerView.visibility = View.GONE
+        /*binding.progress.visibility = View.VISIBLE
+        binding.recyclerView.visibility = View.GONE*/
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        /*_binding = null*/
     }
 }
