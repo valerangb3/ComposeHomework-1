@@ -48,6 +48,7 @@ class ProductListFragment : Fragment() {
             .inject(this)
     }
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
