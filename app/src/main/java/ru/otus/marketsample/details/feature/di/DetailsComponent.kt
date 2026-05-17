@@ -5,6 +5,9 @@ import dagger.Component
 import ru.otus.common.data.products.ProductRepository
 import ru.otus.marketsample.details.feature.DetailsFragment
 import ru.otus.common.di.FeatureScope
+import ru.otus.marketsample.details.feature.DetailsViewModelFactory
+import ru.otus.marketsample.products.feature.ProductListViewModel
+import ru.otus.marketsample.products.feature.ProductListViewModelFactory
 import javax.inject.Named
 
 @FeatureScope
@@ -18,6 +21,8 @@ interface DetailsComponent {
             @BindsInstance @Named("productId") productId: String,
         ): DetailsComponent
     }
+
+    fun detailsViewModelFactory(): DetailsViewModelFactory
 
     fun inject(detailsFragment: DetailsFragment)
 }
