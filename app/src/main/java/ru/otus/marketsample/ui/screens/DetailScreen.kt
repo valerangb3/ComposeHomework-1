@@ -6,18 +6,20 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import ru.otus.marketsample.details.feature.DetailsState
 import ru.otus.marketsample.details.feature.DetailsViewModel
+import ru.otus.marketsample.ui.widgets.LoadingProgress
 import ru.otus.marketsample.ui.widgets.products.ProductDetail
 
 @Composable
 fun DetailScreen(
     detailsViewModel: DetailsViewModel,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onError: (() -> Unit)? = null
 ) {
     val state by detailsViewModel.state.collectAsState()
 
     when {
-        state.isLoading -> {}
-        state.hasError -> {}
+        state.isLoading -> LoadingProgress(modifier)
+        state.hasError -> onError?.invoke()
         else -> ProductDetail(
             modifier = modifier,
             detailsState = state.detailsState

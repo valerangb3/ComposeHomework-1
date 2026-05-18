@@ -42,7 +42,7 @@ fun ProductDetail(
                     .fillMaxWidth()
                     .background(Color(0x99ff0000)),
                 contentScale = ContentScale.Crop,
-                model = "",
+                model = detailsState.image,
                 contentDescription = null,
             )
             Text(
@@ -52,7 +52,7 @@ fun ProductDetail(
                 fontSize = 24.sp,
                 text = detailsState.name,
             )
-            if (detailsState.hasDiscount) {
+            if (detailsState.discount.isNotEmpty()) {
                 Discount(
                     modifier = Modifier
                         .align(Alignment.End),

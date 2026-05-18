@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
@@ -39,6 +41,10 @@ android {
         compose = true
     }
 }
+composeCompiler {
+    reportsDestination = layout.buildDirectory.dir("compose_compiler")
+    metricsDestination = layout.buildDirectory.dir("compose_compiler")
+}
 
 dependencies {
     def composeBom = libs.androidx.compose.bom
@@ -68,10 +74,7 @@ dependencies {
     implementation libs.swipetorefresh
     implementation libs.lifecycle.livedata.ktx
     implementation libs.lifecycle.viewmodel.ktx
-    implementation libs.fragment.ktx
     implementation libs.lifecycle.runtime.ktx
-    implementation libs.navigation.fragment.ktx
-    implementation libs.navigation.ui.ktx
     implementation libs.coil
     implementation libs.gson
     implementation libs.bundles.network
