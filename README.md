@@ -4,8 +4,8 @@
 
 
 1. Метрики находятся в папке metrics 
-2. 📁 [Classes](metrics/app_debug-classes.txt)](metrics/app_debug-classes.txt)
-3. 📁 [Classes](metrics/app_debug-classes.txt)](metrics/app_debug-classes.txt)
+2. 📁 [Classes](metrics/app_debug-classes.txt)
+3. 📁 [Сomposables](metrics/app_debug-composables.txt)
 4. Результат [![Список товаров](img/result1.png)](img/result1.png)
 5. Результат [![Список промо](img/result2.png)](img/result2.png)
 
