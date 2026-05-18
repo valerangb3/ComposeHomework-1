@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.material3.NavigationBarItem
@@ -18,13 +19,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.findNavController
 import androidx.navigation.toRoute
@@ -71,31 +76,40 @@ fun App(
 ) {
 
     val navController = rememberNavController()
-
+    val backStackEntry by navController.currentBackStackEntryAsState()
+    val shouldShowBottomBar = backStackEntry?.destination?.hasRoute<ProductDetail>() == false
     Scaffold(
         modifier = modifier,
         bottomBar = {
-            NavigationBar(windowInsets = NavigationBarDefaults.windowInsets) {
-                NavigationBarItem(
-                    selected = true,
-                    onClick = {
+            if (shouldShowBottomBar) {
+                NavigationBar(windowInsets = NavigationBarDefaults.windowInsets) {
+                    NavigationBarItem(
+                        selected = true,
+                        onClick = {
 
-                    },
-                    icon = {
+                        },
+                        icon = {
+                            Icon(
+                                painter = painterResource(ru.otus.common.ui.R.drawable.ic_list),
+                                contentDescription = null
+                            )
+                        },
+                        label = { Text(stringResource(R.string.title_products)) }
+                    )
+                    NavigationBarItem(
+                        selected = true,
+                        onClick = {
 
-                    },
-                    label = { Text("Foo") }
-                )
-                NavigationBarItem(
-                    selected = true,
-                    onClick = {
-
-                    },
-                    icon = {
-
-                    },
-                    label = { Text("Foo") }
-                )
+                        },
+                        icon = {
+                            Icon(
+                                painter = painterResource(ru.otus.common.ui.R.drawable.ic_discount),
+                                contentDescription = null
+                            )
+                        },
+                        label = { Text(stringResource(R.string.title_promo)) }
+                    )
+                }
             }
         }
     ) { contentPadding ->
