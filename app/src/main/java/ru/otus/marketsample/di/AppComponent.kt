@@ -13,7 +13,7 @@ import javax.inject.Singleton
 @Component(
     modules = [
         NetworkModule::class,
-        DataModule::class,
+        DataModule::class
     ]
 )
 interface AppComponent:
@@ -26,4 +26,6 @@ interface AppComponent:
     interface Factory {
         fun create(@BindsInstance applicationContext: Context): AppComponent
     }
+
+    //fun getViewModelFactory(): ViewModelProvider.Factory
 }

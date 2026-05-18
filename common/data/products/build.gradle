@@ -2,7 +2,8 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.kotlinxSerialization)
-    alias(libs.plugins.kapt)
+    //alias(libs.plugins.kapt)
+    id 'com.google.devtools.ksp'
 }
 
 android {
@@ -34,5 +35,5 @@ dependencies {
     implementation libs.androidx.datastore.preferences
 
     implementation libs.dagger
-    kapt libs.daggerCompiler
+    ksp libs.daggerCompiler
 }

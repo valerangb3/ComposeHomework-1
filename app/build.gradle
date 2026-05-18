@@ -1,8 +1,12 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.kotlinxSerialization)
-    alias(libs.plugins.kapt)
+    //alias(libs.plugins.kapt)
+    alias(libs.plugins.compose.compiler)
+    id 'com.google.devtools.ksp'
 }
 
 android {
@@ -34,10 +38,29 @@ android {
     }
     buildFeatures {
         viewBinding true
+        compose = true
     }
+}
+composeCompiler {
+    reportsDestination = layout.buildDirectory.dir("compose_compiler")
+    metricsDestination = layout.buildDirectory.dir("compose_compiler")
 }
 
 dependencies {
+    def composeBom = libs.androidx.compose.bom
+    implementation composeBom
+    androidTestImplementation composeBom
+    implementation libs.androidx.compose.material3
+    implementation("androidx.compose.material:material:1.6.0")
+    implementation libs.androidx.compose.ui
+    implementation libs.androidx.compose.ui.tooling.preview
+    debugImplementation libs.androidx.compose.ui.tooling
+    implementation libs.androidx.activity.compose
+    implementation libs.androidx.lifecycle.viewmodel.compose
+    implementation libs.coil.compose
+    implementation libs.coil.network.okhttp
+    implementation libs.androidx.navigation.compose
+
     implementation project(":common:di")
     implementation project(":common:formatters")
     implementation project(":common:ui")
@@ -51,10 +74,7 @@ dependencies {
     implementation libs.swipetorefresh
     implementation libs.lifecycle.livedata.ktx
     implementation libs.lifecycle.viewmodel.ktx
-    implementation libs.fragment.ktx
     implementation libs.lifecycle.runtime.ktx
-    implementation libs.navigation.fragment.ktx
-    implementation libs.navigation.ui.ktx
     implementation libs.coil
     implementation libs.gson
     implementation libs.bundles.network
@@ -64,7 +84,7 @@ dependencies {
     implementation libs.androidx.datastore.preferences
 
     implementation libs.dagger
-    kapt libs.daggerCompiler
+    ksp libs.daggerCompiler
 
     testImplementation libs.junit
     androidTestImplementation libs.androidx.test.ext.junit
